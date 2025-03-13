@@ -3,6 +3,7 @@ package com.devgen.quiz.services;
 import java.util.Scanner;
 
 import com.devgen.quiz.models.Question;
+import com.devgen.quiz.models.QuizResult;
 
 public class QuizService {
 	
@@ -35,7 +36,7 @@ public class QuizService {
 	        scan.close();
 	    }
 	    
-	    public void printFinalScore() {
+	    public QuizResult getResult() {
 	    	int correctAnswers = 0;
 	        for (int i = 0; i < userSelectedAnswers.length; i++) {
 				if (questions[i].getAnswer().equals(userSelectedAnswers[i])) {
@@ -45,8 +46,22 @@ public class QuizService {
 	        int incorrectAnswers = questions.length - correctAnswers;
 	       
 	        double percentage = ((double) correctAnswers / questions.length) * 100;
-	        System.out.println("correct answers:"+correctAnswers);
-	        System.out.println("incorrect answers:"+incorrectAnswers);
-	        System.out.println("percentage:"+percentage);
+	        
+	    	String suggestion = "";
+	    	
+	    	if(percentage >= 0 && percentage <= 30) {
+	    		suggestion = "You must study much harder";
+	    	}else if(percentage >= 31 && percentage <= 60) {
+	    		suggestion = "You are studying good. Need some more study";
+	    	}else if(percentage >= 61 && percentage <= 90) {
+	    		suggestion = "You are becoming topper and just bit of extra effors little required";
+	    	}else {
+	    		suggestion = "You are very good at concepts and being into top list.";
+	    	}
+	        
+	        
+	        QuizResult quizResult = new QuizResult(correctAnswers, incorrectAnswers, percentage, suggestion);
+	        
+	         return quizResult;
 	    }
 }

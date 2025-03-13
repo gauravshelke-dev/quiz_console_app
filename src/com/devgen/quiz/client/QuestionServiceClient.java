@@ -6,7 +6,7 @@ import com.devgen.quiz.services.QuestionService;
 public class QuestionServiceClient {
  public static void main(String[] args) {
 	 
-	QuestionService questionService = new QuestionService(100);
+	QuestionService questionService = new QuestionService(10);
 	
 	Question question1 = new Question(6, "java born year", "1885", "1920","1995", "2005", "1995");
 	questionService.addQuestion(question1);
