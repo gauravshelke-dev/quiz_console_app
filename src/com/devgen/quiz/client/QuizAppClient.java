@@ -11,8 +11,10 @@ public class QuizAppClient {
 		
     QuestionService questionService = new QuestionService(5);
 	QuizService quizService = new QuizService(questionService);
+	
     quizService.playQuiz();
     QuizResult result =    quizService.getResult();
+    
     
     System.out.println("total correct answers:" + result.getCorrectAnswers());
     System.out.println("total incorrect answers:" + result.getIncorrectAnswers());
