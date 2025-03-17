@@ -2,14 +2,15 @@ package com.devgen.quiz.services;
 
 import java.util.Scanner;
 
+
 import com.devgen.quiz.models.Question;
 import com.devgen.quiz.models.QuizResult;
 
 public class QuizService {
 	
-	 private String[] userSelectedAnswers = new String[5];
-	 private Question[] questions;
-	 private QuestionService questionService;
+	    private int[] userSelectedAnswers = new int[5];
+		private Question[] questions;	
+		private QuestionService questionService; 
 	 
 	 public QuizService(QuestionService questionService) {
 		 this.questionService = questionService;
@@ -25,13 +26,12 @@ public class QuizService {
 	            System.out.println("Question: "+questions[i].getId());
 	            System.out.println(questions[i].getQuestion());
 	            
-	            System.out.println(questions[i].getOption1());
-	            System.out.println(questions[i].getOption2());
-	            System.out.println(questions[i].getOption3());
-	            System.out.println(questions[i].getOption4());
+	            for(String option : questions[i].getOptions()) {
+	         		System.out.println(option);                		
+	         	}
 	            
 	           
-	            userSelectedAnswers[i] = scan.next();
+	            userSelectedAnswers[i] = scan.nextInt();
 	          }
 	        scan.close();
 	    }
@@ -39,7 +39,7 @@ public class QuizService {
 	    public QuizResult getResult() {
 	    	int correctAnswers = 0;
 	        for (int i = 0; i < userSelectedAnswers.length; i++) {
-				if (questions[i].getAnswer().equals(userSelectedAnswers[i])) {
+				if (questions[i].getAnswer() == userSelectedAnswers[i]) {
 					correctAnswers++;
 				}
 			}
@@ -57,8 +57,9 @@ public class QuizService {
 	         return quizResult;
 	    }
 	    
-	    private public String getSuggestion(double percentage) {
-	    	String suggestion = "";
+		private String getSuggestion(double percentage) {
+			String suggestion = "";
+	    	
 	    	if(percentage >= 0 && percentage <= 30) {
 	    		suggestion = "You must study much harder";
 	    	}else if(percentage >= 31 && percentage <= 60) {
@@ -68,6 +69,6 @@ public class QuizService {
 	    	}else {
 	    		suggestion = "You are very good at concepts and being into top list.";
 	    	}
-	    	return suggestion;
-	    }
+			return suggestion;
+		}
 }
